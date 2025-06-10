@@ -1,0 +1,1 @@
+<img src="{{ asset('images/logo_fernarda-freire.png') }}" alt="Logo Fernanda Freire Leilões" style="height: 150px; width: auto;">
