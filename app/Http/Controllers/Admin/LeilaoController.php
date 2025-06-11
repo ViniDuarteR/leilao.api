@@ -19,23 +19,17 @@ class LeilaoController extends Controller
 
         // Começa a construir a consulta ao banco de dados
         $query = Leilao::query()
-            // O método 'when' só executa o código de dentro se o primeiro
-            // parâmetro ($search) não for nulo ou vazio.
             ->when($search, function ($q, $search) {
-                // Procura onde o ID é igual ao buscado OU onde o título contém o texto buscado
                 return $q->where('id', $search)
                     ->orWhere('titulo', 'LIKE', "%{$search}%");
             });
 
-        // Aplica a ordenação e a paginação na consulta, já com os filtros
-        $leiloes = $query->latest()->paginate(10);
+        // Aplica a ordenação e a paginação na consulta
+        $leiloes = $query->latest()->paginate(10); // Usando 10 itens por página para o painel
 
-        // Retorna a view, passando os leilões encontrados
+        // A LINHA CRUCIAL: Deve usar 'view()' para carregar a página da tabela
         return view('admin.leiloes.index', ['leiloes' => $leiloes]);
     }
-    /**
-     * Mostra o formulário para criar um novo leilão (Create)
-     */
     public function create()
     {
         return view('admin.leiloes.create');
@@ -82,25 +76,34 @@ class LeilaoController extends Controller
      */
     public function update(Request $request, Leilao $leilao)
     {
+        // 1. Validação (note que a imagem não é 'required' na edição)
         $request->validate([
             'titulo' => 'required|string|max:255',
             'endereco' => 'required|string|max:255',
-            'preco_atual' => 'required|numeric|min:0',
+            'matricula' => 'required|string|max:50',
             'valor_avaliacao' => 'required|numeric|min:0',
+            'preco_atual' => 'required|numeric|min:0',
+            'url_anuncio' => 'required|string',
+            'status' => 'required|string',
             'imagem' => 'sometimes|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
         ]);
 
+        // 2. Pega todos os dados da requisição
         $data = $request->all();
 
+        // 3. Se uma nova imagem foi enviada...
         if ($request->hasFile('imagem')) {
-            // Apaga a imagem antiga
+            // Apaga a imagem antiga para não ocupar espaço
             Storage::disk('public')->delete($leilao->url_imagem);
 
-            // Salva a nova imagem
+            // Salva a nova imagem na pasta 'leiloes' e pega o caminho
             $path = $request->file('imagem')->store('leiloes', 'public');
+
+            // Atualiza o caminho da imagem nos dados a serem salvos
             $data['url_imagem'] = $path;
         }
 
+        // 4. Atualiza o leilão com os novos dados
         $leilao->update($data);
 
         return redirect()->route('admin.leiloes.index')->with('success', 'Leilão atualizado com sucesso!');

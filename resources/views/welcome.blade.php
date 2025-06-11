@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    <link rel="icon" href="{{ asset('images/favicon.png') }}" type="image/png">
     <title>Fernanda Freire - Leiloeira Oficial</title>
 
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
@@ -18,14 +19,14 @@
 
     <header class="header-container">
         <div class="logo-container">
-            <img src="{{ asset('images/logo_fernarda-freire.png') }}" alt="Logo Fernanda Freire Leilões">
+            <img src="{{ asset('images/fernandaLogo.png') }}" alt="Logo Fernanda Freire Leilões">
         </div>
 
         <nav>
             <ul>
                 <li><a href="#">Home</a></li>
-                <li><a href="#">Sobre a Leiloeira</a></li>
-                <li><a href="#">Leilões</a></li>
+                <li><a href="https://www.fernandafreireleiloes.com.br/quem-somos">Sobre a Leiloeira</a></li>
+                <li><a href="https://www.fernandafreireleiloes.com.br/">Leilões</a></li>
             </ul>
         </nav>
 
@@ -83,8 +84,8 @@
                 <h4>Links Rápidos</h4>
                 <ul>
                     <li><a href="#">Home</a></li>
-                    <li><a href="#">Sobre a Leiloeira</a></li>
-                    <li><a href="#">Leilões</a></li>
+                    <li><a href="https://www.fernandafreireleiloes.com.br/quem-somos">Sobre a Leiloeira</a></li>
+                    <li><a href="https://www.fernandafreireleiloes.com.br/">Leilões</a></li>
                 </ul>
             </div>
         </div>

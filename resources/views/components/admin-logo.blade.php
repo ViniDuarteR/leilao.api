@@ -1,1 +1,1 @@
-<img src="{{ asset('images/logo_fernarda-freire.png') }}" alt="Logo do Painel Administrativo" style="height: 60px; width: auto;">
+<img src="{{ asset('images/fernandaLogo.png') }}" alt="Logo do Painel Administrativo" style="height: 60px; width: auto;">

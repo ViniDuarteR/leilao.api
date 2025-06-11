@@ -10,16 +10,16 @@
                         @csrf
                         @method('PUT')
                         @include('admin.leiloes.partials.form', ['leilao' => $leilao])
-                            <div class="flex items-center justify-end mt-4 gap-4">
+                        <div class="flex items-center justify-end mt-4 gap-4">
 
-                                <a href="{{ route('admin.leiloes.index') }}" class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded">
-                                    Voltar para a Lista
-                                </a>
-                                <button type="submit" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
-                                    Salvar Alterações
-                                </button>
+                            <a href="{{ route('admin.leiloes.index') }}" class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded">
+                                Voltar para a Lista
+                            </a>
+                            <button type="submit" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
+                                Salvar Alterações
+                            </button>
 
-                            </div>
+                        </div>
                     </form>
                 </div>
             </div>
