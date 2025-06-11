@@ -12,12 +12,27 @@ class LeilaoController extends Controller
     /**
      * Mostra a lista de todos os leilões (Read)
      */
-    public function index()
+    public function index(Request $request)
     {
-        $leiloes = Leilao::latest()->get();
+        // Pega o termo de busca da URL (se existir)
+        $search = $request->input('search');
+
+        // Começa a construir a consulta ao banco de dados
+        $query = Leilao::query()
+            // O método 'when' só executa o código de dentro se o primeiro
+            // parâmetro ($search) não for nulo ou vazio.
+            ->when($search, function ($q, $search) {
+                // Procura onde o ID é igual ao buscado OU onde o título contém o texto buscado
+                return $q->where('id', $search)
+                    ->orWhere('titulo', 'LIKE', "%{$search}%");
+            });
+
+        // Aplica a ordenação e a paginação na consulta, já com os filtros
+        $leiloes = $query->latest()->paginate(10);
+
+        // Retorna a view, passando os leilões encontrados
         return view('admin.leiloes.index', ['leiloes' => $leiloes]);
     }
-
     /**
      * Mostra o formulário para criar um novo leilão (Create)
      */
@@ -104,5 +119,13 @@ class LeilaoController extends Controller
         $leilao->delete();
 
         return redirect()->route('admin.leiloes.index')->with('success', 'Leilão apagado com sucesso!');
+    }
+    public function toggleStatus(Leilao $leilao)
+    {
+        // Lógica simples de troca: se o status for 'aberto', vira 'inativo'. Senão, vira 'aberto'.
+        $leilao->status = $leilao->status === 'aberto' ? 'inativo' : 'aberto';
+        $leilao->save();
+
+        return redirect()->route('admin.leiloes.index')->with('success', 'Status do leilão alterado com sucesso!');
     }
 }

@@ -13,31 +13,21 @@ class LeilaoSeeder extends Seeder
      */
     public function run(): void
     {
-        // Apaga todos os leilões existentes para evitar duplicatas ao rodar de novo
+        // Limpa a tabela para garantir que não teremos dados duplicados
         Leilao::truncate();
 
-        // Cria o primeiro leilão de exemplo
-        Leilao::create([
-            'titulo' => 'APARTAMENTO 204 NA TORRE 1',
-            'endereco' => 'AV. BODEN POWELL, 219, CAXIAS, PETROPOLIS',
-            'matricula' => '171090',
-            'url_imagem' => 'https://via.placeholder.com/400x300.png/003366?text=Imovel+1',
-            'valor_avaliacao' => 100000.00,
-            'preco_atual' => 50000.00,
-            'url_anuncio' => '#',
-            'status' => 'aberto'
-        ]);
-
-        // Cria o segundo leilão de exemplo
-        Leilao::create([
-            'titulo' => 'CASA TÉRREA NO CONDOMÍNIO MAJESTY',
-            'endereco' => 'RUA DAS FLORES, 123, CENTRO, RIO DE JANEIRO',
-            'matricula' => '182544',
-            'url_imagem' => 'https://via.placeholder.com/400x300.png/660033?text=Imovel+2',
-            'valor_avaliacao' => 250000.00,
-            'preco_atual' => 125000.00,
-            'url_anuncio' => '#',
-            'status' => 'aberto'
-        ]);
+        for ($i = 1; $i <= 15; $i++) {
+            Leilao::create([
+                'titulo' => 'Imóvel de Teste para Paginação Nº ' . $i,
+                'endereco' => 'Rua dos Testes, ' . ($i * 100) . ', Bairro da Paginação, SP',
+                'matricula' => 'PAG' . date('Y') . $i,
+                'url_imagem' => 'leiloes/placeholder.jpg',
+                'valor_avaliacao' => 120000 + ($i * 10000),
+                'preco_atual' => 60000 + ($i * 5000),
+                'url_anuncio' => '#',
+                'status' => 'aberto',
+                'view_count' => rand(5, 200)
+            ]);
+        }
     }
 }

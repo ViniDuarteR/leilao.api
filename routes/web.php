@@ -28,6 +28,7 @@ Route::middleware('auth')->group(function () {
 
     Route::put('/admin/leiloes/{leilao}', [LeilaoController::class, 'update'])->name('admin.leiloes.update');
     Route::delete('/admin/leiloes/{leilao}', [LeilaoController::class, 'destroy'])->name('admin.leiloes.destroy');
+    Route::patch('/admin/leiloes/{leilao}/toggle-status', [LeilaoController::class, 'toggleStatus'])->name('admin.leiloes.toggleStatus');
 });
 
 require __DIR__ . '/auth.php';

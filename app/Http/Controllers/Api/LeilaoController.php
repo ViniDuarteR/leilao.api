@@ -13,7 +13,7 @@ class LeilaoController extends Controller
      */
     public function index(Request $request)
     {
-        $query = Leilao::query();
+        $query = Leilao::where('status', 'aberto');
 
         if ($request->filled('localizacao')) {
             $query->where('endereco', 'LIKE', '%' . $request->localizacao . '%');
@@ -25,13 +25,7 @@ class LeilaoController extends Controller
             $query->where('preco_atual', '<=', $request->preco_max);
         }
 
-        $leiloes = $query->latest()->get();
-
-        // NOVIDADE: Percorremos a lista de leilões antes de devolvê-la
-        $leiloes->each(function ($leilao) {
-            // Para cada leilão, modificamos o atributo url_imagem para ser a URL completa
-            $leilao->url_imagem = asset('storage/' . $leilao->url_imagem);
-        });
+        $leiloes = $query->latest()->paginate(6);
 
         return response()->json($leiloes);
     }
