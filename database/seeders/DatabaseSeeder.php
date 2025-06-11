@@ -2,9 +2,9 @@
 
 namespace Database\Seeders;
 
-use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Database\Seeders\LeilaoSeeder; // Garante que a classe seja importada
 
 class DatabaseSeeder extends Seeder
 {
@@ -13,11 +13,12 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
+        // A linha abaixo que causa o erro deve estar comentada ou apagada
+        // \App\Models\User::factory(10)->create();
 
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
+        // Nós chamamos o nosso seeder de leilões diretamente.
+        $this->call([
+            LeilaoSeeder::class,
         ]);
     }
 }

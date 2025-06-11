@@ -32,10 +32,10 @@
 
 <div class="mb-4">
     <label for="imagem" class="block text-sm font-medium text-gray-700">Imagem do Leilão</label>
-    <input type="file" name="imagem" id="imagem" class="mt-1 block w-full border-gray-300">
-
+    <input type="file" name="imagem" id="imagem" class="mt-1 block w-full border-gray-300" required>
     <p class="mt-1 text-xs text-gray-500">Formatos aceitos: JPG, PNG, GIF, WEBP. Tamanho máximo: 2MB.</p>
 
+    {{-- Mostra a imagem atual somente no formulário de edição --}}
     @isset($leilao->url_imagem)
     <div class="mt-2">
         <p class="text-sm text-gray-500">Imagem Atual:</p>

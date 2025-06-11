@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Leilao;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage; // <-- A LINHA QUE ESTAVA FALTANDO
+use Illuminate\Support\Facades\Storage;
 
 class LeilaoController extends Controller
 {
@@ -40,6 +40,7 @@ class LeilaoController extends Controller
      */
     public function store(Request $request)
     {
+        // 1. Validação dos dados, agora com regras para o arquivo de imagem
         $request->validate([
             'titulo' => 'required|string|max:255',
             'endereco' => 'required|string|max:255',
@@ -48,18 +49,24 @@ class LeilaoController extends Controller
             'preco_atual' => 'required|numeric|min:0',
             'url_anuncio' => 'required|string',
             'status' => 'required|string',
-            'imagem' => 'required|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
+            'imagem' => 'required|image|mimes:jpeg,png,jpg,gif,webp|max:2048', // required, image, mime types, max 2MB
         ]);
 
-        $data = $request->all();
+        // 2. Pega todos os dados, exceto o arquivo da imagem por enquanto
+        $data = $request->except('imagem');
 
+        // 3. Se um arquivo de imagem foi enviado...
         if ($request->hasFile('imagem')) {
+            // ...salva a imagem na pasta 'storage/app/public/leiloes' e pega o caminho
             $path = $request->file('imagem')->store('leiloes', 'public');
+            // ...e adiciona o caminho da imagem aos dados que serão salvos no banco.
             $data['url_imagem'] = $path;
         }
 
+        // 4. Cria o novo leilão com todos os dados
         Leilao::create($data);
 
+        // 5. Redireciona de volta para a lista
         return redirect()->route('admin.leiloes.index')->with('success', 'Leilão criado com sucesso!');
     }
 

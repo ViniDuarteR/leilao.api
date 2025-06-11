@@ -9,15 +9,15 @@
                     <form method="POST" action="{{ route('admin.leiloes.store') }}" enctype="multipart/form-data">
                         @csrf
                         @include('admin.leiloes.partials.form')
-                    <div class="flex items-center justify-end mt-4 gap-4">
-                        <a href="{{ route('admin.leiloes.index') }}" class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded">
-                            Cancelar
-                        </a>
-                        <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-                            Salvar Leilão
-                        </button>
+                        <div class="flex items-center justify-end mt-4 gap-4">
+                            <a href="{{ route('admin.leiloes.index') }}" class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded">
+                                Cancelar
+                            </a>
+                            <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                                Salvar Leilão
+                            </button>
 
-                    </div>
+                        </div>
                     </form>
                 </div>
             </div>
