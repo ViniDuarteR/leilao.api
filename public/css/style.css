@@ -2,8 +2,9 @@
 body {
     font-family: 'Montserrat', sans-serif;
     margin: 0;
-    background-color: #f7f7f7; /* Um cinza um pouco mais suave como nos layouts modernos */
+    background-color: #f7f7f7;
     color: #333;
+    overflow-x: hidden; /* Adicione esta linha */
 }
 
 main {
@@ -113,7 +114,7 @@ nav a:hover {
 .banner-hero {
     width: 100%; /* Ocupa toda a largura disponível */
     /* truque para remover qualquer espaço extra que o navegador coloque embaixo da imagem */
-    line-height: 0; 
+    line-height: 0;
     font-size: 0;
 }
 
@@ -378,7 +379,7 @@ footer {
 
 .add-button-container a {
     /* Propriedades para garantir a visibilidade */
-    display: inline-block; 
+    display: inline-block;
     visibility: visible;
     opacity: 1;
 
@@ -401,4 +402,44 @@ footer {
     color: #888;
     margin-top: 10px;
     font-weight: bold;
+}
+
+/* ================================================= */
+/* ESTILOS PARA TELAS MENORES (MOBILE)      */
+/* ================================================= */
+@media (max-width: 1024px) { /* Aplica estes estilos se a tela for menor que 1024px */
+
+    /* --- Ajustes no Cabeçalho --- */
+    .header-container {
+        flex-direction: column; /* Faz os itens ficarem um embaixo do outro */
+        gap: 20px; /* Cria um espaço entre eles */
+        padding: 20px; /* Ajusta o padding para celular */
+    }
+
+    /* Esconde o menu de navegação principal em telas menores */
+    /* Este é o primeiro passo para criar um menu "hambúrguer" */
+    .header-container nav {
+        display: none;
+    }
+
+    /* --- Ajustes no Hero/Busca --- */
+    .hero-container {
+        flex-direction: column; /* Empilha o texto e a imagem */
+    }
+    .filtros-wrapper {
+        flex-direction: column; /* Empilha os filtros de busca */
+        align-items: stretch; /* Faz os filtros ocuparem a mesma largura */
+    }
+    .filtro-item button {
+        width: 100%; /* Faz o botão de filtro ocupar toda a largura */
+    }
+
+    /* --- Ajustes no Rodapé --- */
+    .footer-content {
+        flex-direction: column; /* Empilha as colunas do rodapé */
+        text-align: center; /* Centraliza o texto no celular */
+    }
+    .footer-column h4 {
+        border-bottom: none; /* Remove a borda do título no mobile */
+    }
 }
