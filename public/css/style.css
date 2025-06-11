@@ -415,6 +415,19 @@ footer {
         gap: 20px; /* Cria um espaço entre eles */
         padding: 20px; /* Ajusta o padding para celular */
     }
+    .busca-container {
+        position: relative; /* Remove o 'absolute' para que ele ocupe espaço no fluxo da página */
+        width: 100%;      /* Ocupa toda a largura do seu container pai (o cabeçalho) */
+        box-sizing: border-box; /* Garante que o padding não quebre o layout */
+        margin-top: 15px; /* Adiciona um espaço acima dele, separando-o do botão */
+
+        /* Anula os posicionamentos de desktop */
+        top: auto;
+        right: auto;
+
+        box-shadow: none; /* Remove a sombra no mobile, pois não está mais flutuando */
+        border: 1px solid #ddd; /* Adiciona uma borda simples */
+    }
 
     /* Esconde o menu de navegação principal em telas menores */
     /* Este é o primeiro passo para criar um menu "hambúrguer" */
