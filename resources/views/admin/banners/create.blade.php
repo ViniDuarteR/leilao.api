@@ -1,22 +1,23 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">{{ __('Adicionar Novo Leilão') }}</h2>
+        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+            {{ __('Adicionar Novo Banner') }}
+        </h2>
     </x-slot>
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
-                    {{-- CORREÇÃO 1: A action do formulário agora aponta para 'painel.leiloes.store' --}}
-                    <form method="POST" action="{{ route('painel.leiloes.store') }}" enctype="multipart/form-data">
+                    <form method="POST" action="{{ route('painel.banners.store') }}" enctype="multipart/form-data">
                         @csrf
-                        @include('admin.leiloes.partials.form')
+                        {{-- Incluindo o formulário correto dos BANNERS --}}
+                        @include('admin.banners.partials.form')
                         <div class="flex items-center justify-end mt-4 gap-4">
-                            {{-- CORREÇÃO 2: O link do botão Cancelar agora aponta para 'painel.leiloes.index' --}}
-                            <a href="{{ route('painel.leiloes.index') }}" class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded">
+                            <a href="{{ route('painel.banners.index') }}" class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded">
                                 Cancelar
                             </a>
                             <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-                                Salvar Leilão
+                                Salvar Banner
                             </button>
                         </div>
                     </form>

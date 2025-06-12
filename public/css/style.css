@@ -110,19 +110,41 @@ nav a:hover {
 }
 
 
-/* --- Estilo do Banner Principal (Hero) --- */
-.banner-hero {
-    width: 100%; /* Ocupa toda a largura disponível */
-    /* truque para remover qualquer espaço extra que o navegador coloque embaixo da imagem */
-    line-height: 0;
-    font-size: 0;
+/* --- Estilo do Carrossel de Banners (Swiper) --- */
+.swiper-container {
+    width: 100%;
+    height: 450px; /* Defina a altura que desejar para o banner */
 }
-
-.banner-hero img {
-    width: 100%; /* Garante que a imagem seja responsiva */
-    height: auto; /* Mantém a proporção original da imagem */
+.swiper {
+    width: 100%;
+    height: 100%;
 }
-
+.swiper-slide {
+    text-align: center;
+    font-size: 18px;
+    background: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.swiper-slide img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Garante que a imagem cubra o slide sem distorcer */
+}
+/* Estilizando as setas para ficarem mais visíveis */
+.swiper-button-next, .swiper-button-prev {
+    color: #ffffff;
+    background-color: rgba(0, 0, 0, 0.3);
+    padding: 20px;
+    border-radius: 50%;
+    height: 25px !important;
+    width: 25px !important;
+}
+.swiper-button-next:after, .swiper-button-prev:after {
+    font-size: 25px !important;
+}
 
 /* --- Estilos REFINADOS para o Dropdown de Busca --- */
 

@@ -9,7 +9,7 @@
     <title>Fernanda Freire - Leiloeira Oficial</title>
 
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
-
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
@@ -57,9 +57,16 @@
         </div>
     </header>
 
-    <section class="banner-hero">
-        <img src="{{ asset('images/bannerFernanda.png') }}" alt="Banner Principal - Leilões Fernanda Freire">
-    </section>
+    <section class="swiper-container">
+    <div class="swiper">
+        <div class="swiper-wrapper"></div>
+
+        <div class="swiper-pagination"></div>
+
+        <div class="swiper-button-prev"></div>
+        <div class="swiper-button-next"></div>
+    </div>
+</section>
 
     <main>
         <h2>Leilões em Destaque</h2>
@@ -93,72 +100,99 @@
             <p>&copy; {{ date('Y') }} Fernanda Freire Leilões. Todos os direitos reservados.</p>
         </div>
     </footer>
-
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script>
         // Espera todo o conteúdo HTML da página ser carregado antes de executar o script
-        document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', () => {
 
-            // --- Bloco 1: Seleção dos Elementos ---
-            const leiloesGrid = document.getElementById('leiloes-grid');
-            const btnFiltrar = document.getElementById('btn-filtrar');
-            const inputLocalizacao = document.getElementById('filtro-localizacao');
-            const inputPrecoMin = document.getElementById('filtro-preco-min');
-            const inputPrecoMax = document.getElementById('filtro-preco-max');
-            const btnToggleBusca = document.getElementById('btn-toggle-busca');
-            const buscaContainer = document.querySelector('.busca-container');
-            const btnVejaMaisContainer = document.querySelector('.veja-mais-container');
-            const btnVejaMais = document.querySelector('.btn-veja-mais');
+    // --- Bloco 1: Seleção dos Elementos ---
+    const leiloesGrid = document.getElementById('leiloes-grid');
+    const btnFiltrar = document.getElementById('btn-filtrar');
+    const inputLocalizacao = document.getElementById('filtro-localizacao');
+    const inputPrecoMin = document.getElementById('filtro-preco-min');
+    const inputPrecoMax = document.getElementById('filtro-preco-max');
+    const btnToggleBusca = document.getElementById('btn-toggle-busca');
+    const buscaContainer = document.querySelector('.busca-container');
+    const btnVejaMaisContainer = document.querySelector('.veja-mais-container');
+    const btnVejaMais = document.querySelector('.btn-veja-mais');
+    const swiperWrapper = document.querySelector('.swiper-wrapper'); // Elemento novo para o banner
 
-            // --- Bloco 2: Variáveis de Estado ---
-            let currentPage = 1;
-            let lastPage = 1;
-            let isLoading = false;
-            let currentFilters = {};
+    // --- Bloco 2: Variáveis de Estado ---
+    let currentPage = 1;
+    let lastPage = 1;
+    let isLoading = false;
+    let currentFilters = {};
 
-            // --- Bloco 3: Funções Auxiliares ---
-            const formatarMoeda = (valor) => {
-                const numero = parseFloat(valor);
-                return new Intl.NumberFormat('pt-BR', {
-                    style: 'currency',
-                    currency: 'BRL'
-                }).format(numero);
-            };
+    // --- Bloco 3: Funções Auxiliares ---
+    const formatarMoeda = (valor) => {
+        const numero = parseFloat(valor);
+        return new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(numero);
+    };
 
-            // --- Bloco 4: Função Principal de Carga dos Leilões ---
-            async function carregarLeiloes(replace = true) {
-                if (isLoading) return;
-                isLoading = true;
-                btnVejaMais.textContent = 'Carregando...';
+    // --- Bloco 4: Funções de Carga de Dados ---
+    // Função para carregar os BANNERS
+    async function carregarBanners() {
+        try {
+            const response = await fetch('/api/banners');
+            const banners = await response.json();
 
-                if (replace) {
-                    currentPage = 1;
-                    leiloesGrid.innerHTML = '<p>Carregando leilões...</p>';
-                }
+            if (!swiperWrapper || banners.length === 0) return;
 
-                const queryParams = new URLSearchParams(currentFilters);
+            banners.forEach(banner => {
+                const slideHtml = `
+                    <div class="swiper-slide">
+                        <a href="${banner.link_url || '#'}">
+                            <img src="${banner.image_path}" alt="Banner Promocional">
+                        </a>
+                    </div>
+                `;
+                swiperWrapper.innerHTML += slideHtml;
+            });
 
-                try {
-                    const response = await fetch(`/api/leiloes?page=${currentPage}&${queryParams}`);
-                    const responseData = await response.json();
+            // Depois de adicionar os slides, inicia o Swiper
+            new Swiper('.swiper', {
+                loop: true,
+                autoplay: { delay: 5000, disableOnInteraction: false },
+                pagination: { el: '.swiper-pagination', clickable: true },
+                navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' },
+            });
 
-                    const leiloes = responseData.data;
-                    lastPage = responseData.last_page;
+        } catch (error) {
+            console.error('Erro ao carregar banners:', error);
+        }
+    }
 
-                    if (replace) {
-                        leiloesGrid.innerHTML = '';
-                    }
+    // Função para carregar os LEILÕES (com paginação)
+    async function carregarLeiloes(replace = true) {
+        if (isLoading) return;
+        isLoading = true;
+        btnVejaMais.textContent = 'Carregando...';
 
-                    if (!leiloes || leiloes.length === 0) {
-                        if (replace) leiloesGrid.innerHTML = '<p>Nenhum leilão encontrado para os filtros selecionados.</p>';
-                        btnVejaMaisContainer.classList.add('hidden');
-                        return;
-                    }
+        if (replace) {
+            currentPage = 1;
+            leiloesGrid.innerHTML = '<p>Carregando leilões...</p>';
+        }
 
-                    leiloes.forEach(leilao => {
-                        const imageUrl = `/storage/${leilao.url_imagem}`;
-                        const cardHtml = `
+        const queryParams = new URLSearchParams(currentFilters);
+        try {
+            const response = await fetch(`/api/leiloes?page=${currentPage}&${queryParams}`);
+            const responseData = await response.json();
+            
+            const leiloes = responseData.data; 
+            lastPage = responseData.last_page; 
+
+            if (replace) leiloesGrid.innerHTML = '';
+            
+            if (!leiloes || leiloes.length === 0) {
+                if(replace) leiloesGrid.innerHTML = '<p>Nenhum leilão encontrado.</p>';
+                btnVejaMaisContainer.classList.add('hidden');
+                return;
+            }
+            
+            leiloes.forEach(leilao => {
+                const cardHtml = `
                     <div class="card-leilao">
-                        <img src="${imageUrl}" alt="${leilao.titulo}">
+                        <img src="${leilao.url_imagem}" alt="${leilao.titulo}">
                         <div class="info">
                             <h3>${leilao.titulo}</h3>
                             <p class="endereco">${leilao.endereco}</p>
@@ -172,95 +206,73 @@
                         <a href="${leilao.url_anuncio}" class="ver-anuncio-btn" data-leilao-id="${leilao.id}">VER ANÚNCIO</a>
                     </div>
                 `;
-                        leiloesGrid.insertAdjacentHTML('beforeend', cardHtml);
-                    });
+                leiloesGrid.insertAdjacentHTML('beforeend', cardHtml);
+            });
 
-                    if (currentPage >= lastPage) {
-                        btnVejaMaisContainer.classList.add('hidden');
-                    } else {
-                        btnVejaMaisContainer.classList.remove('hidden');
-                    }
-                } catch (error) {
-                    console.error('Erro ao carregar leilões:', error);
-                } finally {
-                    isLoading = false;
-                    btnVejaMais.textContent = 'VEJA MAIS LEILÕES';
-                }
+            if (currentPage >= lastPage) {
+                btnVejaMaisContainer.classList.add('hidden');
+            } else {
+                btnVejaMaisContainer.classList.remove('hidden');
             }
+        } catch (error) {
+            console.error('Erro ao carregar leilões:', error);
+        } finally {
+            isLoading = false;
+            btnVejaMais.textContent = 'VEJA MAIS LEILÕES';
+        }
+    }
 
-            // --- Bloco 5: Lógica dos Eventos de Clique ---
-            btnToggleBusca.addEventListener('click', (event) => {
-                event.preventDefault();
-                buscaContainer.classList.toggle('hidden');
-            });
-            document.addEventListener('click', function(event) {
-                if (!btnToggleBusca.contains(event.target) && !buscaContainer.contains(event.target)) {
-                    buscaContainer.classList.add('hidden');
-                }
-            });
-
-            btnFiltrar.addEventListener('click', () => {
-                currentFilters = {
-                    localizacao: inputLocalizacao.value,
-                    preco_min: inputPrecoMin.value,
-                    preco_max: inputPrecoMax.value,
-                };
-                Object.keys(currentFilters).forEach(key => {
-                    if (!currentFilters[key]) {
-                        delete currentFilters[key];
-                    }
-                });
-                carregarLeiloes(true);
-            });
-
-            btnVejaMais.addEventListener('click', (event) => {
-                event.preventDefault();
-                currentPage++;
-                carregarLeiloes(false);
-            });
-
-            leiloesGrid.addEventListener('click', async function(event) {
-                const botao = event.target.closest('.ver-anuncio-btn');
-                if (!botao) {
-                    return;
-                }
-
-                event.preventDefault();
-
-                const card = botao.closest('.card-leilao');
-                if (card) {
-                    const contadorElemento = card.querySelector('.view-count');
-                    if (contadorElemento) {
-                        try {
-                            let contagemAtual = parseInt(contadorElemento.textContent.match(/\d+/)[0] || 0);
-                            contagemAtual++;
-                            contadorElemento.textContent = `👁️ ${contagemAtual} visualizações`;
-                        } catch (e) {
-                            console.error("Não foi possível atualizar o contador visualmente.", e);
-                        }
-                    }
-                }
-
-                const leilaoId = botao.dataset.leilaoId;
-                const urlDestino = botao.href;
-
+    // --- Bloco 5: Lógica dos Eventos ---
+    btnToggleBusca.addEventListener('click', (event) => { event.preventDefault(); buscaContainer.classList.toggle('hidden'); });
+    document.addEventListener('click', function(event) { if (!btnToggleBusca.contains(event.target) && !buscaContainer.contains(event.target)) { buscaContainer.classList.add('hidden'); } });
+    btnFiltrar.addEventListener('click', () => {
+        currentFilters = {
+            localizacao: inputLocalizacao.value,
+            preco_min: inputPrecoMin.value,
+            preco_max: inputPrecoMax.value,
+        };
+        Object.keys(currentFilters).forEach(key => { if (!currentFilters[key]) { delete currentFilters[key]; } });
+        carregarLeiloes(true);
+    });
+    btnVejaMais.addEventListener('click', (event) => {
+        event.preventDefault();
+        currentPage++;
+        carregarLeiloes(false);
+    });
+    leiloesGrid.addEventListener('click', async function(event) {
+        const botao = event.target.closest('.ver-anuncio-btn');
+        if (!botao) { return; }
+        event.preventDefault();
+        const card = botao.closest('.card-leilao');
+        if (card) {
+            const contadorElemento = card.querySelector('.view-count');
+            if (contadorElemento) {
                 try {
-                    await fetch(`/api/leiloes/${leilaoId}/increment-view`, {
-                        method: 'POST',
-                        headers: {
-                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-                        }
-                    });
-                } catch (error) {
-                    console.error('Não foi possível incrementar a visualização no servidor:', error);
-                } finally {
-                    window.location.href = urlDestino;
-                }
+                    let contagemAtual = parseInt(contadorElemento.textContent.match(/\d+/)[0] || 0);
+                    contagemAtual++;
+                    contadorElemento.textContent = `👁️ ${contagemAtual} visualizações`;
+                } catch (e) { console.error("Não foi possível atualizar o contador visualmente.", e); }
+            }
+        }
+        const leilaoId = botao.dataset.leilaoId;
+        const urlDestino = botao.href;
+        try {
+            await fetch(`/api/leiloes/${leilaoId}/increment-view`, {
+                method: 'POST',
+                headers: { 'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content') }
             });
+        } catch (error) {
+            console.error('Não foi possível incrementar a visualização no servidor:', error);
+        } finally {
+            window.location.href = urlDestino;
+        }
+    });
 
-            // --- Bloco 6: Carga Inicial ---
-            carregarLeiloes(true);
-        });
+    // --- Bloco Final: Carga Inicial ---
+    // Agora chamamos as duas funções para carregar tudo quando a página abre
+    carregarBanners();
+    carregarLeiloes(true);
+});
     </script>
 </body>
 

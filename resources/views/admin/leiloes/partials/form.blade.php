@@ -31,16 +31,26 @@
 </div>
 
 <div class="mb-4">
-    <label for="imagem" class="block text-sm font-medium text-gray-700">Imagem do Leilão</label>
-    <input type="file" name="imagem" id="imagem" class="mt-1 block w-full border-gray-300" required>
+    <label for="imagem" class="block text-sm font-medium text-gray-700">
+        Imagem do Leilão 
+        {{-- Se for a página de edição, mostra que é opcional --}}
+        @isset($leilao) 
+            <span class="text-gray-500 text-xs">(Opcional: envie uma nova para substituir a atual)</span>
+        @endisset
+    </label>
+
+    {{-- A lógica @if decide se o campo é obrigatório ou não --}}
+    <input type="file" name="imagem" id="imagem" class="mt-1 block w-full border-gray-300" 
+           @if(!isset($leilao)) required @endif> 
+
     <p class="mt-1 text-xs text-gray-500">Formatos aceitos: JPG, PNG, GIF, WEBP. Tamanho máximo: 2MB.</p>
 
     {{-- Mostra a imagem atual somente no formulário de edição --}}
     @isset($leilao->url_imagem)
-    <div class="mt-2">
-        <p class="text-sm text-gray-500">Imagem Atual:</p>
-        <img src="{{ asset('storage/' . $leilao->url_imagem) }}" alt="Imagem atual" class="h-20 w-auto rounded">
-    </div>
+        <div class="mt-2">
+            <p class="text-sm text-gray-500">Imagem Atual:</p>
+            <img src="{{ asset('storage/' . $leilao->url_imagem) }}" alt="Imagem atual" class="h-20 w-auto rounded">
+        </div>
     @endisset
 </div>
 
