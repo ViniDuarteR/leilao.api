@@ -450,6 +450,33 @@ footer {
     margin-top: 10px;
     font-weight: bold;
 }
+.header-container nav ul {
+    list-style-type: none;
+}
+
+/* Força o estilo correto do botão hambúrguer para que ele nunca vire um ponto */
+.mobile-menu-toggle {
+    gap: 5px; /* Adiciona um espaço consistente entre as barras */
+}
+.mobile-menu-toggle .bar {
+    display: block;
+    width: 25px; /* Largura fixa */
+    height: 3px; /* Altura fixa */
+    background-color: #333;
+    border-radius: 3px;
+    transition: all 0.3s ease-in-out; /* Prepara para a animação */
+}
+
+/* Animação do botão hambúrguer para virar um "X" quando ativo */
+.mobile-menu-toggle.is-active .bar:nth-child(2) {
+    opacity: 0; /* A barra do meio some */
+}
+.mobile-menu-toggle.is-active .bar:nth-child(1) {
+    transform: translateY(8px) rotate(45deg); /* A barra de cima inclina e desce */
+}
+.mobile-menu-toggle.is-active .bar:nth-child(3) {
+    transform: translateY(-8px) rotate(-45deg); /* A barra de baixo inclina e sobe */
+}
 
 /* ================================================= */
 /* ESTILOS PARA TELAS MENORES (MOBILE)      */

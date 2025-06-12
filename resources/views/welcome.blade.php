@@ -237,8 +237,9 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- Bloco 5: Lógica dos Eventos de Clique ---
     // Lógica para o menu hambúrguer (mobile)
     mobileMenuToggle.addEventListener('click', () => {
-        navMenu.classList.toggle('nav-active');
-    });
+    navMenu.classList.toggle('nav-active');
+    mobileMenuToggle.classList.toggle('is-active'); // ADICIONE ESTA LINHA
+});
 
     // Lógica para abrir/fechar o painel de busca
     btnToggleBusca.addEventListener('click', (event) => { event.preventDefault(); buscaContainer.classList.toggle('hidden'); });
