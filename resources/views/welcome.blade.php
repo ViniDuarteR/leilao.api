@@ -16,63 +16,86 @@
 </head>
 
 <body>
-
     <header class="header-container">
-        <div class="logo-container">
+    <button class="mobile-menu-toggle" aria-label="Abrir Menu">
+        <span class="bar"></span>
+        <span class="bar"></span>
+        <span class="bar"></span>
+    </button>
+
+    <div class="logo-container">
+        <a href="/">
             <img src="{{ asset('images/fernandaLogo.png') }}" alt="Logo Fernanda Freire Leilões">
-        </div>
+        </a>
+    </div>
 
-        <nav>
-            <ul>
-                <li><a href="#">Home</a></li>
-                <li><a href="https://www.fernandafreireleiloes.com.br/quem-somos">Sobre a Leiloeira</a></li>
-                <li><a href="https://www.fernandafreireleiloes.com.br/">Leilões</a></li>
-            </ul>
-        </nav>
+    <nav>
+        <ul>
+            <li><a href="#">Home</a></li>
+            <li><a href="https://www.fernandafreireleiloes.com.br/quem-somos">Sobre a Leiloeira</a></li>
+            <li><a href="https://www.fernandafreireleiloes.com.br/">Leilões</a></li>
+        </ul>
+    </nav>
 
-        <div class="header-contato">
+    <div class="header-contato">
+        <a href="#" id="btn-toggle-busca" class="btn-busca">BUSCA AVANÇADA ▼</a>
 
-            <a href="#" id="btn-toggle-busca" class="btn-busca">BUSCA AVANÇADA ▼</a>
-
-            <section class="busca-container hidden">
-                <h3>Busca Avançada</h3>
-                <div class="filtros-wrapper">
-                    <div class="filtro-item">
-                        <label for="filtro-localizacao">Localização</label>
-                        <input type="text" id="filtro-localizacao" placeholder="Cidade ou bairro...">
-                    </div>
-                    <div class="filtro-item">
-                        <label for="filtro-preco-min">Preço Mínimo</label>
-                        <input type="number" id="filtro-preco-min" placeholder="R$ 10.000">
-                    </div>
-                    <div class="filtro-item">
-                        <label for="filtro-preco-max">Preço Máximo</label>
-                        <input type="number" id="filtro-preco-max" placeholder="R$ 500.000">
-                    </div>
-                    <div class="filtro-item">
-                        <button id="btn-filtrar">Filtrar Leilões</button>
-                    </div>
+        <section class="busca-container hidden">
+            <h3>Busca Avançada</h3>
+            <div class="filtros-wrapper">
+                <div class="filtro-item">
+                    <label for="filtro-localizacao">Localização</label>
+                    <input type="text" id="filtro-localizacao" placeholder="Cidade ou bairro...">
                 </div>
-            </section>
+                <div class="filtro-item">
+                    <label for="filtro-preco-min">Preço Mínimo</label>
+                    <input type="number" id="filtro-preco-min" placeholder="R$ 10.000">
+                </div>
+                <div class="filtro-item">
+                    <label for="filtro-preco-max">Preço Máximo</label>
+                    <input type="number" id="filtro-preco-max" placeholder="R$ 500.000">
+                </div>
+                <div class="filtro-item">
+                    <button id="btn-filtrar">Filtrar Leilões</button>
+                </div>
+            </div>
+        </section>
+    </div>
+</header>
+
+    <section class="busca-container hidden">
+        <h3>Busca Avançada</h3>
+        <div class="filtros-wrapper">
+            <div class="filtro-item">
+                <label for="filtro-localizacao">Localização</label>
+                <input type="text" id="filtro-localizacao" placeholder="Cidade ou bairro...">
+            </div>
+            <div class="filtro-item">
+                <label for="filtro-preco-min">Preço Mínimo</label>
+                <input type="number" id="filtro-preco-min" placeholder="R$ 10.000">
+            </div>
+            <div class="filtro-item">
+                <label for="filtro-preco-max">Preço Máximo</label>
+                <input type="number" id="filtro-preco-max" placeholder="R$ 500.000">
+            </div>
+            <div class="filtro-item">
+                <button id="btn-filtrar">Filtrar Leilões</button>
+            </div>
         </div>
-    </header>
+    </section>
 
     <section class="swiper-container">
-    <div class="swiper">
-        <div class="swiper-wrapper"></div>
-
-        <div class="swiper-pagination"></div>
-
-        <div class="swiper-button-prev"></div>
-        <div class="swiper-button-next"></div>
-    </div>
-</section>
+        <div class="swiper">
+            <div class="swiper-wrapper"></div>
+            <div class="swiper-pagination"></div>
+            <div class="swiper-button-prev"></div>
+            <div class="swiper-button-next"></div>
+        </div>
+    </section>
 
     <main>
         <h2>Leilões em Destaque</h2>
-
         <div id="leiloes-grid" class="grid-container"></div>
-
         <div class="veja-mais-container">
             <a href="#" class="btn-veja-mais">VEJA MAIS LEILÕES</a>
         </div>
@@ -86,7 +109,6 @@
                 <p><strong>Email:</strong> fernandafreireleiloes@gmail.com</p>
                 <p><strong>Telefone:</strong> +55 (21) 99455-3955</p>
             </div>
-
             <div class="footer-column">
                 <h4>Links Rápidos</h4>
                 <ul>
@@ -95,6 +117,14 @@
                     <li><a href="https://www.fernandafreireleiloes.com.br/">Leilões</a></li>
                 </ul>
             </div>
+            <div class="footer-column">
+                <h4>Redes Sociais</h4>
+                <div class="social-links">
+                    <a href="#">Facebook</a>
+                    <a href="#">Instagram</a>
+                    <a href="#">LinkedIn</a>
+                </div>
+            </div>
         </div>
         <div class="footer-bottom">
             <p>&copy; {{ date('Y') }} Fernanda Freire Leilões. Todos os direitos reservados.</p>
@@ -102,7 +132,7 @@
     </footer>
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script>
-        // Espera todo o conteúdo HTML da página ser carregado antes de executar o script
+// Espera todo o conteúdo HTML da página ser carregado antes de executar o script
 document.addEventListener('DOMContentLoaded', () => {
 
     // --- Bloco 1: Seleção dos Elementos ---
@@ -115,7 +145,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const buscaContainer = document.querySelector('.busca-container');
     const btnVejaMaisContainer = document.querySelector('.veja-mais-container');
     const btnVejaMais = document.querySelector('.btn-veja-mais');
-    const swiperWrapper = document.querySelector('.swiper-wrapper'); // Elemento novo para o banner
+    const swiperWrapper = document.querySelector('.swiper-wrapper');
+    const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
+    const navMenu = document.querySelector('.header-container nav');
 
     // --- Bloco 2: Variáveis de Estado ---
     let currentPage = 1;
@@ -130,65 +162,47 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     // --- Bloco 4: Funções de Carga de Dados ---
-    // Função para carregar os BANNERS
     async function carregarBanners() {
         try {
             const response = await fetch('/api/banners');
             const banners = await response.json();
-
             if (!swiperWrapper || banners.length === 0) return;
-
             banners.forEach(banner => {
                 const slideHtml = `
                     <div class="swiper-slide">
-                        <a href="${banner.link_url || '#'}">
-                            <img src="${banner.image_path}" alt="Banner Promocional">
-                        </a>
-                    </div>
-                `;
+                        <a href="${banner.link_url || '#'}"><img src="${banner.image_path}" alt="Banner Promocional"></a>
+                    </div>`;
                 swiperWrapper.innerHTML += slideHtml;
             });
-
-            // Depois de adicionar os slides, inicia o Swiper
             new Swiper('.swiper', {
                 loop: true,
                 autoplay: { delay: 5000, disableOnInteraction: false },
                 pagination: { el: '.swiper-pagination', clickable: true },
                 navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' },
             });
-
-        } catch (error) {
-            console.error('Erro ao carregar banners:', error);
-        }
+        } catch (error) { console.error('Erro ao carregar banners:', error); }
     }
 
-    // Função para carregar os LEILÕES (com paginação)
     async function carregarLeiloes(replace = true) {
         if (isLoading) return;
         isLoading = true;
         btnVejaMais.textContent = 'Carregando...';
-
         if (replace) {
             currentPage = 1;
             leiloesGrid.innerHTML = '<p>Carregando leilões...</p>';
         }
-
         const queryParams = new URLSearchParams(currentFilters);
         try {
             const response = await fetch(`/api/leiloes?page=${currentPage}&${queryParams}`);
             const responseData = await response.json();
-            
             const leiloes = responseData.data; 
             lastPage = responseData.last_page; 
-
             if (replace) leiloesGrid.innerHTML = '';
-            
             if (!leiloes || leiloes.length === 0) {
                 if(replace) leiloesGrid.innerHTML = '<p>Nenhum leilão encontrado.</p>';
                 btnVejaMaisContainer.classList.add('hidden');
                 return;
             }
-            
             leiloes.forEach(leilao => {
                 const cardHtml = `
                     <div class="card-leilao">
@@ -204,11 +218,9 @@ document.addEventListener('DOMContentLoaded', () => {
                             </div>
                         </div>
                         <a href="${leilao.url_anuncio}" class="ver-anuncio-btn" data-leilao-id="${leilao.id}">VER ANÚNCIO</a>
-                    </div>
-                `;
+                    </div>`;
                 leiloesGrid.insertAdjacentHTML('beforeend', cardHtml);
             });
-
             if (currentPage >= lastPage) {
                 btnVejaMaisContainer.classList.add('hidden');
             } else {
@@ -222,9 +234,19 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // --- Bloco 5: Lógica dos Eventos ---
+    // --- Bloco 5: Lógica dos Eventos de Clique ---
+    // Lógica para o menu hambúrguer (mobile)
+    mobileMenuToggle.addEventListener('click', () => {
+        navMenu.classList.toggle('nav-active');
+    });
+
+    // Lógica para abrir/fechar o painel de busca
     btnToggleBusca.addEventListener('click', (event) => { event.preventDefault(); buscaContainer.classList.toggle('hidden'); });
+    
+    // Lógica para fechar o painel ao clicar fora
     document.addEventListener('click', function(event) { if (!btnToggleBusca.contains(event.target) && !buscaContainer.contains(event.target)) { buscaContainer.classList.add('hidden'); } });
+    
+    // Lógica do botão de filtrar
     btnFiltrar.addEventListener('click', () => {
         currentFilters = {
             localizacao: inputLocalizacao.value,
@@ -234,11 +256,15 @@ document.addEventListener('DOMContentLoaded', () => {
         Object.keys(currentFilters).forEach(key => { if (!currentFilters[key]) { delete currentFilters[key]; } });
         carregarLeiloes(true);
     });
+
+    // Lógica do botão "Veja Mais"
     btnVejaMais.addEventListener('click', (event) => {
         event.preventDefault();
         currentPage++;
         carregarLeiloes(false);
     });
+
+    // Lógica do clique no botão 'Ver Anúncio' (Contador)
     leiloesGrid.addEventListener('click', async function(event) {
         const botao = event.target.closest('.ver-anuncio-btn');
         if (!botao) { return; }
@@ -269,7 +295,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // --- Bloco Final: Carga Inicial ---
-    // Agora chamamos as duas funções para carregar tudo quando a página abre
     carregarBanners();
     carregarLeiloes(true);
 });

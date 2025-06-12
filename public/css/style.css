@@ -33,6 +33,30 @@ footer {
 
 
 /* --- Estilos do Cabeçalho (Header) --- */
+/* Estilo do botão hambúrguer */
+.mobile-menu-toggle {
+    display: none; /* Começa escondido em telas grandes */
+    flex-direction: column;
+    justify-content: space-around;
+    width: 30px;
+    height: 25px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+}
+
+.mobile-menu-toggle:focus {
+    outline: none;
+}
+
+.mobile-menu-toggle .bar {
+    display: block;
+    width: 100%;
+    height: 3px;
+    background-color: #333;
+    border-radius: 3px;
+}
 .header-container {
     display: flex;
     justify-content: space-between;
@@ -90,13 +114,7 @@ nav a:hover {
     color: #000;
 }
 
-/* Regra ÚNICA e CORRETA para o .header-contato */
-.header-contato {
-    display: flex;
-    align-items: center;
-    gap: 20px;
-    position: relative; /* Posição relativa para o dropdown */
-}
+
 
 .btn-busca {
     background-color: #eee;
@@ -109,11 +127,11 @@ nav a:hover {
     cursor: pointer;
 }
 
-
-/* --- Estilo do Carrossel de Banners (Swiper) --- */
+/* --- Estilo REFINADO do Carrossel de Banners (Swiper) --- */
 .swiper-container {
     width: 100%;
-    height: 450px; /* Defina a altura que desejar para o banner */
+    /* Você pode ajustar esta altura para se adequar melhor à proporção do seu banner */
+    height: 450px; 
 }
 .swiper {
     width: 100%;
@@ -122,7 +140,8 @@ nav a:hover {
 .swiper-slide {
     text-align: center;
     font-size: 18px;
-    background: #fff;
+    /* Fundo preto para caso a imagem não preencha tudo (letterbox) */
+    background: #000; 
     display: flex;
     justify-content: center;
     align-items: center;
@@ -131,39 +150,45 @@ nav a:hover {
     display: block;
     width: 100%;
     height: 100%;
-    object-fit: cover; /* Garante que a imagem cubra o slide sem distorcer */
+    /* CORREÇÃO 1: Garante que a imagem inteira apareça, sem cortar */
+    object-fit: contain; 
 }
-/* Estilizando as setas para ficarem mais visíveis */
+
+/* CORREÇÃO 2: AJUSTES NAS SETAS */
 .swiper-button-next, .swiper-button-prev {
-    color: #ffffff;
-    background-color: rgba(0, 0, 0, 0.3);
-    padding: 20px;
-    border-radius: 50%;
+    color: #ffffff; /* Cor da seta */
+    background-color: rgba(0, 0, 0, 0.3); /* Fundo um pouco mais transparente */
+
+    /* Deixa o círculo da seta menor */
     height: 25px !important;
     width: 25px !important;
 }
+
+/* Diminui o tamanho do ícone da seta */
 .swiper-button-next:after, .swiper-button-prev:after {
     font-size: 25px !important;
 }
 
 /* --- Estilos REFINADOS para o Dropdown de Busca --- */
 
-/* O container do contato continua 'relative' para posicionar o painel */
 .header-contato {
     position: relative;
+    display: flex;
+    align-items: center;
+    gap: 20px;
 }
 
-/* O painel dropdown com cantos mais arredondados e mais espaçamento */
+/* Estilo Padrão (Desktop) para o painel de busca flutuante */
 .busca-container {
     position: absolute;
-    top: 115%; /* Um pouco mais perto do botão */
+    top: 120%; /* Posição abaixo do botão */
     right: 0;
     width: 350px;
     background-color: #fff;
-    border: 1px solid #ddd; /* Borda mais suave */
-    border-radius: 12px;  /* Cantos mais arredondados */
-    box-shadow: 0 8px 25px rgba(0,0,0,0.15); /* Sombra mais pronunciada */
-    padding: 25px; /* Aumenta o espaçamento interno */
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+    padding: 25px;
     z-index: 10;
 }
 
@@ -431,50 +456,79 @@ footer {
 /* ================================================= */
 @media (max-width: 1024px) { /* Aplica estes estilos se a tela for menor que 1024px */
 
-    /* --- Ajustes no Cabeçalho --- */
+        /* --- Ajustes no Cabeçalho --- */
     .header-container {
-        flex-direction: column; /* Faz os itens ficarem um embaixo do outro */
-        gap: 20px; /* Cria um espaço entre eles */
-        padding: 20px; /* Ajusta o padding para celular */
+        display: flex;
+        flex-wrap: wrap; /* A chave! Permite que os itens quebrem para a próxima linha */
+        justify-content: space-between; /* Alinha a primeira linha (sanduíche e logo) */
+        align-items: center;
+        padding: 15px;
+        row-gap: 15px; /* Espaço vertical entre as linhas do cabeçalho */
+    }
+    /* Forçamos o container do botão de busca a ocupar a linha de baixo inteira */
+    .header-contato {
+        width: 100%; 
+        display: flex;
+        justify-content: center; /* Centraliza o botão 'BUSCA AVANÇADA' */
+        order: 3; /* Garante que ele seja o último item na ordem visual */
     }
     .busca-container {
-        position: relative; /* Remove o 'absolute' para que ele ocupe espaço no fluxo da página */
-        width: 100%;      /* Ocupa toda a largura do seu container pai (o cabeçalho) */
-        box-sizing: border-box; /* Garante que o padding não quebre o layout */
-        margin-top: 15px; /* Adiciona um espaço acima dele, separando-o do botão */
+        /* Força o painel a ocupar a largura da tela, não importa onde ele esteja */
+        width: 100vw; /* 100% da largura da tela (viewport width) */
+        position: fixed; /* Fixo em relação à tela, não ao pai */
+        top: 175px; /* Distância do topo (ajuste se seu header mudar de tamanho) */
+        right: 0;
+        left: 0;
 
-        /* Anula os posicionamentos de desktop */
-        top: auto;
-        right: auto;
-
-        box-shadow: none; /* Remove a sombra no mobile, pois não está mais flutuando */
-        border: 1px solid #ddd; /* Adiciona uma borda simples */
+        /* Ajustes visuais para o mobile */
+        border-radius: 0; 
+        border-left: none;
+        border-right: none;
+        box-shadow: 0 8px 15px rgba(0,0,0,0.1); /* Sombra um pouco mais suave */
     }
 
-    /* Esconde o menu de navegação principal em telas menores */
-    /* Este é o primeiro passo para criar um menu "hambúrguer" */
+    /* Faz o botão hambúrguer aparecer */
+    .mobile-menu-toggle {
+        display: flex; 
+        order: -1; /* Coloca o botão hambúrguer como primeiro item visualmente */
+    }
+
+    .logo-container {
+        order: 0; /* Garante que a logo venha depois do hambúrguer */
+    }
+
+    /* Prepara a navegação para ser um menu dropdown que ocupa toda a largura */
     .header-container nav {
-        display: none;
+        display: block;
+        width: 100%; 
+        order: 3; /* Força o menu a ser o último item, pulando uma linha */
+        max-height: 0; /* Começa com altura 0 (escondido) */
+        overflow: hidden; /* Esconde o conteúdo que 'vaza' */
+        transition: max-height 0.4s ease-in-out; /* Animação de slide */
     }
 
-    /* --- Ajustes no Hero/Busca --- */
-    .hero-container {
-        flex-direction: column; /* Empilha o texto e a imagem */
-    }
-    .filtros-wrapper {
-        flex-direction: column; /* Empilha os filtros de busca */
-        align-items: stretch; /* Faz os filtros ocuparem a mesma largura */
-    }
-    .filtro-item button {
-        width: 100%; /* Faz o botão de filtro ocupar toda a largura */
+    /* Quando o menu estiver ativo, ele se expande para uma altura visível */
+    .header-container nav.nav-active {
+        max-height: 300px; 
+        padding-top: 15px; /* Espaço para não colar no header */
     }
 
-    /* --- Ajustes no Rodapé --- */
-    .footer-content {
-        flex-direction: column; /* Empilha as colunas do rodapé */
-        text-align: center; /* Centraliza o texto no celular */
+    /* Estilo dos links no menu mobile (um embaixo do outro) */
+    .header-container nav ul {
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
     }
-    .footer-column h4 {
-        border-bottom: none; /* Remove a borda do título no mobile */
+
+    .header-container nav li {
+        width: 100%;
+        text-align: center;
+        padding: 12px 0;
+        border-bottom: 1px solid #f0f0f0;
     }
+    .header-container nav li:last-child {
+        border-bottom: none;
+    }
+
+    /* ... (outros estilos de @media que já tínhamos) ... */
 }
