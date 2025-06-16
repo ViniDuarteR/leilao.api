@@ -130,8 +130,11 @@ nav a:hover {
 /* --- Estilo REFINADO do Carrossel de Banners (Swiper) --- */
 .swiper-container {
     width: 100%;
-    /* Você pode ajustar esta altura para se adequar melhor à proporção do seu banner */
-    height: 450px; 
+    max-width: 1920px; /* Define uma largura máxima para telas gigantes (TVs) */
+    margin: 0 auto;    /* Centraliza o banner se a tela for maior que 1920px */
+
+    /* A MÁGICA: Define a proporção do banner. Ex: 16 de largura para 7 de altura */
+    aspect-ratio: 16 / 7;
 }
 .swiper {
     width: 100%;
@@ -141,7 +144,7 @@ nav a:hover {
     text-align: center;
     font-size: 18px;
     /* Fundo preto para caso a imagem não preencha tudo (letterbox) */
-    background: #000; 
+    background: transparent;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -151,7 +154,7 @@ nav a:hover {
     width: 100%;
     height: 100%;
     /* CORREÇÃO 1: Garante que a imagem inteira apareça, sem cortar */
-    object-fit: contain; 
+    object-fit: contain;
 }
 
 /* CORREÇÃO 2: AJUSTES NAS SETAS */
@@ -494,7 +497,7 @@ footer {
     }
     /* Forçamos o container do botão de busca a ocupar a linha de baixo inteira */
     .header-contato {
-        width: 100%; 
+        width: 100%;
         display: flex;
         justify-content: center; /* Centraliza o botão 'BUSCA AVANÇADA' */
         order: 3; /* Garante que ele seja o último item na ordem visual */
@@ -508,7 +511,7 @@ footer {
         left: 0;
 
         /* Ajustes visuais para o mobile */
-        border-radius: 0; 
+        border-radius: 0;
         border-left: none;
         border-right: none;
         box-shadow: 0 8px 15px rgba(0,0,0,0.1); /* Sombra um pouco mais suave */
@@ -516,7 +519,7 @@ footer {
 
     /* Faz o botão hambúrguer aparecer */
     .mobile-menu-toggle {
-        display: flex; 
+        display: flex;
         order: -1; /* Coloca o botão hambúrguer como primeiro item visualmente */
     }
 
@@ -527,7 +530,7 @@ footer {
     /* Prepara a navegação para ser um menu dropdown que ocupa toda a largura */
     .header-container nav {
         display: block;
-        width: 100%; 
+        width: 100%;
         order: 3; /* Força o menu a ser o último item, pulando uma linha */
         max-height: 0; /* Começa com altura 0 (escondido) */
         overflow: hidden; /* Esconde o conteúdo que 'vaza' */
@@ -536,7 +539,7 @@ footer {
 
     /* Quando o menu estiver ativo, ele se expande para uma altura visível */
     .header-container nav.nav-active {
-        max-height: 300px; 
+        max-height: 300px;
         padding-top: 15px; /* Espaço para não colar no header */
     }
 
@@ -558,4 +561,77 @@ footer {
     }
 
     /* ... (outros estilos de @media que já tínhamos) ... */
+}
+
+
+
+
+
+
+
+
+
+/* ======================================================= */
+/* ESTILOS FINAIS E RESPONSIVOS PARA O CARROSSEL (3 TAMANHOS) */
+/* ======================================================= */
+
+/* PASSO 1: Altura Padrão (Desktop) */
+.swiper-container {
+    width: 100%;
+    height: 450px; /* Altura para telas de desktop (ex: notebooks, monitores comuns) */
+    margin: 0 auto;
+}
+
+.swiper {
+    width: 100%;
+    height: 100%;
+}
+
+.swiper-slide {
+    text-align: center;
+    font-size: 18px;
+    background: #f0f0f0; /* Cor de fundo suave caso a imagem demore a carregar */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.swiper-slide img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    /* 'cover' preenche todo o espaço, cortando o excesso. É o melhor para alturas fixas. */
+    object-fit: cover;
+}
+
+/* Estilo das setas (continua o mesmo) */
+.swiper-button-next, .swiper-button-prev {
+    color: #ffffff;
+    background-color: rgba(0, 0, 0, 0.3);
+    height: 25px !important;
+    width: 25px !important;
+    border-radius: 50%;
+}
+
+.swiper-button-next:after, .swiper-button-prev:after {
+    font-size: 25px !important;
+}
+
+
+/* ======================================================= */
+/* REGRAS PARA TELAS ESPECÍFICAS               */
+/* ======================================================= */
+
+/* PASSO 2: Altura para Telas Pequenas (Celular) */
+@media (max-width: 767px) { /* Afeta telas com largura de até 767px */
+    .swiper-container {
+        height: 300px; /* Altura menor e mais apropriada para celulares */
+    }
+}
+
+/* PASSO 3: Altura para Telas Muito Grandes (TVs) */
+@media (min-width: 1920px) { /* Afeta telas com largura a partir de 1920px */
+    .swiper-container {
+        height: 650px; /* Altura maior para TVs e monitores ultrawide */
+    }
 }
