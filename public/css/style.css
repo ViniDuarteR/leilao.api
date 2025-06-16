@@ -141,7 +141,7 @@ nav a:hover {
        Defina a proporção que mais se parece com a dos seus banners.
        Ex: 16 / 9 é o formato de TV. 16 / 7 é mais esticado (widescreen).
     */
-    aspect-ratio: 16 / 7; /* <<-- MEXA NESTE VALOR! */
+    aspect-ratio: 800 / 139; /* <<-- MEXA NESTE VALOR! */
 
     background-color: #e0e0e0; /* Um cinza claro para o fundo, caso haja barras */
 }
@@ -155,7 +155,7 @@ nav a:hover {
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #000; /* Fundo das "letterboxes" se a proporção não for exata */
+    background-color: transparent; /* Fundo das "letterboxes" se a proporção não for exata */
 }
 
 .swiper-slide img {
