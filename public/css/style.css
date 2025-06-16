@@ -569,20 +569,3 @@ footer {
 
     /* ... (outros estilos de @media que já tínhamos) ... */
 }
-/* ======================================================= */
-/* REGRAS PARA TELAS ESPECÍFICAS               */
-/* ======================================================= */
-
-/* PASSO 2: Altura para Telas Pequenas (Celular) */
-@media (max-width: 767px) { /* Afeta telas com largura de até 767px */
-    .swiper-container {
-        height: 300px; /* Altura menor e mais apropriada para celulares */
-    }
-}
-
-/* PASSO 3: Altura para Telas Muito Grandes (TVs) */
-@media (min-width: 1920px) { /* Afeta telas com largura a partir de 1920px */
-    .swiper-container {
-        height: 650px; /* Altura maior para TVs e monitores ultrawide */
-    }
-}
