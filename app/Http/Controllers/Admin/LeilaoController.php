@@ -37,6 +37,7 @@ class LeilaoController extends Controller
      */
     public function store(Request $request)
     {
+        $this->cleanPriceInputs($request);
         $request->validate([
             'titulo' => 'required|string|max:255',
             'endereco' => 'required|string|max:255',
@@ -71,6 +72,7 @@ class LeilaoController extends Controller
      */
     public function update(Request $request, Leilao $leilao)
     {
+        $this->cleanPriceInputs($request);
         $request->validate([
             'titulo' => 'required|string|max:255',
             'endereco' => 'required|string|max:255',
@@ -117,5 +119,23 @@ class LeilaoController extends Controller
 
         // ROTA CORRIGIDA AQUI
         return redirect()->route('painel.leiloes.index')->with('success', 'Leilão apagado com sucesso!');
+    }
+    private function cleanPriceInputs(Request $request)
+    {
+        $priceFields = ['valor_avaliacao', 'preco_atual'];
+
+        foreach ($priceFields as $field) {
+            if ($request->filled($field)) {
+                // 1. Pega o valor do input (ex: "150.000,50")
+                $rawValue = $request->input($field);
+                // 2. Remove os pontos de milhar
+                $cleanedValue = str_replace('.', '', $rawValue);
+                // 3. Troca a vírgula do decimal por ponto
+                $cleanedValue = str_replace(',', '.', $cleanedValue);
+
+                // 4. Sobrescreve o valor no request com o número limpo
+                $request->merge([$field => $cleanedValue]);
+            }
+        }
     }
 }

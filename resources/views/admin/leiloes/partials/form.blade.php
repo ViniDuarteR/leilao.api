@@ -22,35 +22,35 @@
 
 <div class="mb-4">
     <label for="preco_atual" class="block text-sm font-medium text-gray-700">Preço Atual</label>
-    <input type="number" name="preco_atual" id="preco_atual" value="{{ old('preco_atual', $leilao->preco_atual ?? '') }}" step="0.01" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm" required>
+    <input type="text" inputmode="decimal" name="preco_atual" id="preco_atual" value="{{ old('preco_atual', $leilao->preco_atual ?? '') }}" step="0.01" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm" required>
 </div>
 
 <div class="mb-4">
     <label for="valor_avaliacao" class="block text-sm font-medium text-gray-700">Valor de Avaliação</label>
-    <input type="number" name="valor_avaliacao" id="valor_avaliacao" value="{{ old('valor_avaliacao', $leilao->valor_avaliacao ?? '') }}" step="0.01" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm" required>
+    <input type="text" inputmode="decimal" name="valor_avaliacao" id="valor_avaliacao" value="{{ old('valor_avaliacao', $leilao->valor_avaliacao ?? '') }}" step="0.01" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm" required>
 </div>
 
 <div class="mb-4">
     <label for="imagem" class="block text-sm font-medium text-gray-700">
-        Imagem do Leilão 
+        Imagem do Leilão
         {{-- Se for a página de edição, mostra que é opcional --}}
-        @isset($leilao) 
-            <span class="text-gray-500 text-xs">(Opcional: envie uma nova para substituir a atual)</span>
+        @isset($leilao)
+        <span class="text-gray-500 text-xs">(Opcional: envie uma nova para substituir a atual)</span>
         @endisset
     </label>
 
     {{-- A lógica @if decide se o campo é obrigatório ou não --}}
-    <input type="file" name="imagem" id="imagem" class="mt-1 block w-full border-gray-300" 
-           @if(!isset($leilao)) required @endif> 
+    <input type="file" name="imagem" id="imagem" class="mt-1 block w-full border-gray-300"
+        @if(!isset($leilao)) required @endif>
 
     <p class="mt-1 text-xs text-gray-500">Formatos aceitos: JPG, PNG, GIF, WEBP. Tamanho máximo: 2MB.</p>
 
     {{-- Mostra a imagem atual somente no formulário de edição --}}
     @isset($leilao->url_imagem)
-        <div class="mt-2">
-            <p class="text-sm text-gray-500">Imagem Atual:</p>
-            <img src="{{ asset('storage/' . $leilao->url_imagem) }}" alt="Imagem atual" class="h-20 w-auto rounded">
-        </div>
+    <div class="mt-2">
+        <p class="text-sm text-gray-500">Imagem Atual:</p>
+        <img src="{{ asset('storage/' . $leilao->url_imagem) }}" alt="Imagem atual" class="h-20 w-auto rounded">
+    </div>
     @endisset
 </div>
 

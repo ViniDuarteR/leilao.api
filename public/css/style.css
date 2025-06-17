@@ -141,9 +141,9 @@ nav a:hover {
        Defina a proporção que mais se parece com a dos seus banners.
        Ex: 16 / 9 é o formato de TV. 16 / 7 é mais esticado (widescreen).
     */
-    aspect-ratio: 800 / 139; /* <<-- MEXA NESTE VALOR! */
+    aspect-ratio: 1920 / 500; /* <<-- MEXA NESTE VALOR! */
 
-    background-color: #e0e0e0; /* Um cinza claro para o fundo, caso haja barras */
+    background-color: #f7f7f7; /* Um cinza claro para o fundo, caso haja barras */
 }
 
 .swiper {
@@ -566,6 +566,10 @@ footer {
     .header-container nav li:last-child {
         border-bottom: none;
     }
+}
 
-    /* ... (outros estilos de @media que já tínhamos) ... */
+@media (max-width: 767px) { /* Afeta telas com largura de até 767px */
+    .swiper-container {
+        height: 300px; /* Altura menor e mais apropriada para celulares */
+    }
 }
