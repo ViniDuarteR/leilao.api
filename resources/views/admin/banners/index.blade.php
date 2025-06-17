@@ -1,3 +1,14 @@
+<!--
+|--------------------------------------------------------------------------
+| Informações do Arquivo
+|--------------------------------------------------------------------------
+|
+| Projeto: Leiloeira Fernanda Freire
+| Autor: Vinicius Duarte
+| Email: viniciusduarterosa@icloud.com
+| Data: Junho de 2025
+|
+-->
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">

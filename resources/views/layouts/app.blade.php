@@ -1,3 +1,15 @@
+<!--
+|--------------------------------------------------------------------------
+| Informações do Arquivo
+|--------------------------------------------------------------------------
+|
+| Projeto: Leiloeira Fernanda Freire
+| Autor: Vinicius Duarte
+| Email: viniciusduarterosa@icloud.com
+| Data: Junho de 2025
+|
+-->
+
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 

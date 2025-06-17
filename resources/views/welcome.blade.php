@@ -1,3 +1,15 @@
+<!--
+|--------------------------------------------------------------------------
+| Informações do Arquivo
+|--------------------------------------------------------------------------
+|
+| Projeto: Leiloeira Fernanda Freire
+| Autor: Vinicius Duarte
+| Email: viniciusduarterosa@icloud.com
+| Data: Junho de 2025
+|
+-->
+
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -126,7 +138,11 @@
             </div>
         </div>
         <div class="footer-bottom">
-            <p>&copy; {{ date('Y') }} Fernanda Freire Leilões. Todos os direitos reservados.</p>
+            <p>
+                &copy; {{ date('Y') }} Fernanda Freire Leilões. Todos os direitos reservados.
+                <span class="footer-separator">|</span>
+                Desenvolvido por <a href="https://www.agenciapales.com.br" target="_blank" rel="noopener noreferrer" class="footer-link">Agência Pales</a>
+            </p>
         </div>
     </footer>
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>

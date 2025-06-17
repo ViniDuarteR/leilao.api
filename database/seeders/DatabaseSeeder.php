@@ -1,4 +1,15 @@
 <?php
+/*
+|--------------------------------------------------------------------------
+| Informações do Arquivo
+|--------------------------------------------------------------------------
+|
+| Projeto: Leiloeira Fernanda Freire
+| Autor: Vinicius Duarte
+| Email: viniciusduarterosa@icloud.com
+| Data: Junho de 2025
+|
+*/
 
 namespace Database\Seeders;
 

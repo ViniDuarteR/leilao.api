@@ -1,10 +1,22 @@
+/*
+|--------------------------------------------------------------------------
+| Informações do Arquivo
+|--------------------------------------------------------------------------
+|
+| Projeto: Leiloeira Fernanda Freire
+| Autor: Vinicius Duarte
+| Email: viniciusduarterosa@icloud.com
+| Data: Junho de 2025
+|
+*/
+
 /* --- Estilos Gerais --- */
 body {
     font-family: 'Montserrat', sans-serif;
     margin: 0;
     background-color: #f7f7f7;
     color: #333;
-    overflow-x: hidden; /* Adicione esta linha */
+    overflow-x: hidden;
 }
 
 main {
@@ -427,7 +439,20 @@ footer {
     font-size: 13px;
     color: #888;
 }
+.footer-bottom .footer-separator {
+    margin: 0 10px;
+    color: #999;
+}
 
+.footer-bottom .footer-link {
+    color: #fff;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.footer-bottom .footer-link:hover {
+    text-decoration: underline;
+}
 /* --- Estilo Forçado para o Botão de Adicionar --- */
 .add-button-container {
     text-align: right; /* Garante o alinhamento à direita */
