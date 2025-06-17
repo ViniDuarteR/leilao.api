@@ -32,8 +32,8 @@
         <nav>
             <ul>
                 <li><a href="#">Home</a></li>
-                <li><a href="https://www.fernandafreireleiloes.com.br/quem-somos">Sobre a Leiloeira</a></li>
-                <li><a href="https://www.fernandafreireleiloes.com.br/">Leilões</a></li>
+                <li><a href="https://www.fernandafreireleiloes.com.br/quem-somos" target="_blank" rel="noopener noreferrer">Sobre a Leiloeira</a></li>
+                <li><a href="https://www.fernandafreireleiloes.com.br/" target="_blank" rel="noopener noreferrer">Leilões</a></li>
             </ul>
         </nav>
 
@@ -112,16 +112,16 @@
             <div class="footer-column">
                 <h4>Links Rápidos</h4>
                 <ul>
-                    <li><a href="#">Home</a></li>
-                    <li><a href="https://www.fernandafreireleiloes.com.br/quem-somos">Sobre a Leiloeira</a></li>
-                    <li><a href="https://www.fernandafreireleiloes.com.br/">Leilões</a></li>
+                    <li><a href="">Home</a></li>
+                    <li><a href="https://www.fernandafreireleiloes.com.br/quem-somos" target="_blank" rel="noopener noreferrer">Sobre a Leiloeira</a></li>
+                    <li><a href="https://www.fernandafreireleiloes.com.br/" target="_blank" rel="noopener noreferrer">Leilões</a></li>
                 </ul>
             </div>
             <div class="footer-column">
                 <h4>Redes Sociais</h4>
                 <div class="social-links">
-                    <a href="https://www.instagram.com/fernandafreireleiloeira">Instagram</a>
-                    <a href="https://www.linkedin.com/in/fernanda-freire-698322bb/?originalSubdomain=br">LinkedIn</a>
+                    <a href="https://www.instagram.com/fernandafreireleiloeira" target="_blank" rel="noopener noreferrer">Instagram</a>
+                    <a href="https://www.linkedin.com/in/fernanda-freire-698322bb/?originalSubdomain=br" target="_blank" rel="noopener noreferrer">LinkedIn</a>
                 </div>
             </div>
         </div>
@@ -172,7 +172,7 @@
                     banners.forEach(banner => {
                         const slideHtml = `
                     <div class="swiper-slide">
-                        <a href="${banner.link_url || '#'}"><img src="${banner.image_path}" alt="Banner Promocional"></a>
+                        <a href="${banner.link_url || '#'}" target="_blank" rel="noopener noreferrer"><img src="${banner.image_path}" alt="Banner Promocional"></a>
                     </div>`;
                         swiperWrapper.innerHTML += slideHtml;
                     });
@@ -230,7 +230,7 @@
                                 <p class="preco-atual">Preço atual: ${formatarMoeda(leilao.preco_atual)}</p>
                             </div>
                         </div>
-                        <a href="${leilao.url_anuncio}" class="ver-anuncio-btn" data-leilao-id="${leilao.id}">VER ANÚNCIO</a>
+<a href="${leilao.url_anuncio}" class="ver-anuncio-btn" data-leilao-id="${leilao.id}" target="_blank" rel="noopener noreferrer">VER ANÚNCIO</a>
                     </div>`;
                         leiloesGrid.insertAdjacentHTML('beforeend', cardHtml);
                     });
@@ -321,7 +321,7 @@
                 } catch (error) {
                     console.error('Não foi possível incrementar a visualização no servidor:', error);
                 } finally {
-                    window.location.href = urlDestino;
+                    window.open(urlDestino, '_blank');
                 }
             });
 
