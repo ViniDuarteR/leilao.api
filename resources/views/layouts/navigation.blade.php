@@ -3,7 +3,6 @@
         <div class="flex justify-between h-16">
             <div class="flex">
                 <div class="shrink-0 flex items-center">
-                    {{-- CORREÇÃO: Link da logo agora aponta para a página principal do painel --}}
                     <a href="{{ route('painel.leiloes.index') }}">
                         <x-admin-logo class="block h-12 w-auto" />
                     </a>
@@ -13,8 +12,6 @@
                     <x-nav-link :href="route('painel.leiloes.index')" :active="request()->routeIs('painel.leiloes.*')">
                         {{ __('Gerenciar Leilões') }}
                     </x-nav-link>
-                    
-                    {{-- CORREÇÃO AQUI --}}
                     <x-nav-link :href="route('painel.banners.index')" :active="request()->routeIs('painel.banners.*')">
                         {{ __('Gerenciar Banners') }}
                     </x-nav-link>
@@ -38,11 +35,10 @@
                         <x-dropdown-link :href="route('painel.profile.edit')">
                             {{ __('Profile') }}
                         </x-dropdown-link>
-
                         <form method="POST" action="{{ route('logout') }}">
                             @csrf
                             <x-dropdown-link :href="route('logout')"
-                                    onclick="event.preventDefault();
+                                onclick="event.preventDefault();
                                                 this.closest('form').submit();">
                                 {{ __('Log Out') }}
                             </x-dropdown-link>
@@ -64,29 +60,26 @@
 
     <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
         <div class="pt-2 pb-3 space-y-1">
-             <x-responsive-nav-link :href="route('painel.leiloes.index')" :active="request()->routeIs('painel.leiloes.*')">
+            <x-responsive-nav-link :href="route('painel.leiloes.index')" :active="request()->routeIs('painel.leiloes.*')">
                 {{ __('Gerenciar Leilões') }}
             </x-responsive-nav-link>
             <x-responsive-nav-link :href="route('painel.banners.index')" :active="request()->routeIs('painel.banners.*')">
                 {{ __('Gerenciar Banners') }}
             </x-responsive-nav-link>
         </div>
-
         <div class="pt-4 pb-1 border-t border-gray-200">
             <div class="px-4">
                 <div class="font-medium text-base text-gray-800">{{ Auth::user()->name }}</div>
                 <div class="font-medium text-sm text-gray-500">{{ Auth::user()->email }}</div>
             </div>
-
             <div class="mt-3 space-y-1">
                 <x-responsive-nav-link :href="route('painel.profile.edit')">
                     {{ __('Profile') }}
                 </x-responsive-nav-link>
-
                 <form method="POST" action="{{ route('logout') }}">
                     @csrf
                     <x-responsive-nav-link :href="route('logout')"
-                            onclick="event.preventDefault();
+                        onclick="event.preventDefault();
                                         this.closest('form').submit();">
                         {{ __('Log Out') }}
                     </x-responsive-nav-link>

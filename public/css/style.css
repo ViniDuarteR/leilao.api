@@ -593,8 +593,17 @@ footer {
     }
 }
 
-@media (max-width: 767px) { /* Afeta telas com largura de até 767px */
+@media (max-width: 767px) {
     .swiper-container {
-        height: 300px; /* Altura menor e mais apropriada para celulares */
+        /* Desligamos a proporção fixa */
+        aspect-ratio: auto;
+        /* E dizemos para a altura ser automática, baseada no conteúdo (na imagem) */
+        height: auto;
+    }
+
+    .swiper-slide img {
+        /* No celular, a imagem não precisa preencher uma altura fixa,
+           então 'cover' funciona melhor para ocupar 100% da largura sem distorcer. */
+        object-fit: cover;
     }
 }
