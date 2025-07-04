@@ -1,8 +1,11 @@
 <div class="mb-4">
     <label for="image_path" class="block text-sm font-medium text-gray-700">Imagem do Banner</label>
+    @error('image_path')
+    <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+    @enderror
     <input type="file" name="image_path" id="image_path" class="mt-1 block w-full border-gray-300"
         @if(!isset($banner)) required @endif>
-    <p class="mt-1 text-xs text-gray-500">Recomendado: 1920x500 pixels, nos formatos PNG ou JPG. Tamanho máximo: 2MB.</p>
+    <p class="mt-1 text-xs text-gray-500">Recomendado: 1920x500 pixels, nos formatos PNG ou JPG. Tamanho máximo: 10MB.</p>
     @isset($banner->image_path)
     <div class="mt-2"><img src="{{ asset('storage/' . $banner->image_path) }}" alt="Banner atual" class="h-20 w-auto rounded"></div>
     @endisset

@@ -43,7 +43,7 @@ class BannerController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'image_path' => 'required|image|max:2048',
+            'image_path' => 'required|image|max:10240',
             'link_url' => 'nullable|url',
             'display_order' => 'required|integer',
         ]);
@@ -76,7 +76,7 @@ class BannerController extends Controller
     public function update(Request $request, Banner $banner)
     {
         $request->validate([
-            'image_path' => 'sometimes|image|max:2048',
+            'image_path' => 'sometimes|image|max:10240',
             'link_url' => 'nullable|url',
             'display_order' => 'required|integer',
         ]);

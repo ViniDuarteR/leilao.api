@@ -57,7 +57,7 @@ class LeilaoController extends Controller
             'preco_atual' => 'required|numeric|min:0',
             'url_anuncio' => 'required|string',
             'status' => 'required|string',
-            'imagem' => 'required|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
+            'imagem' => 'required|image|mimes:jpeg,png,jpg,gif,webp|max:10240',
         ]);
         $data = $request->except('imagem');
         if ($request->hasFile('imagem')) {
@@ -92,7 +92,7 @@ class LeilaoController extends Controller
             'preco_atual' => 'required|numeric|min:0',
             'url_anuncio' => 'required|string',
             'status' => 'required|string',
-            'imagem' => 'sometimes|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
+            'imagem' => 'sometimes|image|mimes:jpeg,png,jpg,gif,webp|max:10240',
         ]);
         $data = $request->except('imagem');
         if ($request->hasFile('imagem')) {

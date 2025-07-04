@@ -38,7 +38,11 @@
         @endisset
     </label>
     <input type="file" name="imagem" id="imagem" class="mt-1 block w-full border-gray-300" @if(!isset($leilao)) required @endif>
-    <p class="mt-1 text-xs text-gray-500">Formatos aceitos: JPG, PNG, GIF, WEBP. Tamanho máximo: 2MB.</p>
+    {{-- BLOCO NOVO PARA EXIBIR O ERRO DA IMAGEM --}}
+    @error('imagem')
+    <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+    @enderror
+    <p class="mt-1 text-xs text-gray-500">Formatos aceitos: JPG, PNG, GIF, WEBP. Tamanho máximo: 10MB.</p>
     @isset($leilao->url_imagem)
     <div class="mt-2">
         <p class="text-sm text-gray-500">Imagem Atual:</p>
