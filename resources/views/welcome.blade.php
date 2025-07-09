@@ -184,7 +184,13 @@
                 try {
                     const response = await fetch('/api/banners');
                     const banners = await response.json();
-                    if (!swiperWrapper || banners.length === 0) return;
+                    if (!swiperWrapper || banners.length === 0) {
+                        swiperWrapper.innerHTML = `
+                    <div class="swiper-slide" style="background-color: #ccc;">
+                        <p>Nenhum banner ativo.</p>
+                    </div>`;
+                        return;
+                    }
                     banners.forEach(banner => {
                         const slideHtml = `
                     <div class="swiper-slide">
@@ -193,7 +199,7 @@
                         swiperWrapper.innerHTML += slideHtml;
                     });
                     new Swiper('.swiper', {
-                        loop: true,
+                        loop: banners.length > 1, // Loop só funciona se tiver mais de 1 banner
                         autoplay: {
                             delay: 5000,
                             disableOnInteraction: false
@@ -246,7 +252,7 @@
                                 <p class="preco-atual">Preço atual: ${formatarMoeda(leilao.preco_atual)}</p>
                             </div>
                         </div>
-<a href="${leilao.url_anuncio}" class="ver-anuncio-btn" data-leilao-id="${leilao.id}" target="_blank" rel="noopener noreferrer">VER ANÚNCIO</a>
+                        <a href="${leilao.url_anuncio}" class="ver-anuncio-btn" data-leilao-id="${leilao.id}" target="_blank" rel="noopener noreferrer">VER ANÚNCIO</a>
                     </div>`;
                         leiloesGrid.insertAdjacentHTML('beforeend', cardHtml);
                     });
@@ -264,26 +270,19 @@
             }
 
             // --- Bloco 5: Lógica dos Eventos de Clique ---
-            // Lógica para o menu hambúrguer (mobile)
             mobileMenuToggle.addEventListener('click', () => {
                 navMenu.classList.toggle('nav-active');
-                mobileMenuToggle.classList.toggle('is-active'); // ADICIONE ESTA LINHA
+                mobileMenuToggle.classList.toggle('is-active');
             });
-
-            // Lógica para abrir/fechar o painel de busca
             btnToggleBusca.addEventListener('click', (event) => {
                 event.preventDefault();
                 buscaContainer.classList.toggle('hidden');
             });
-
-            // Lógica para fechar o painel ao clicar fora
             document.addEventListener('click', function(event) {
                 if (!btnToggleBusca.contains(event.target) && !buscaContainer.contains(event.target)) {
                     buscaContainer.classList.add('hidden');
                 }
             });
-
-            // Lógica do botão de filtrar
             btnFiltrar.addEventListener('click', () => {
                 currentFilters = {
                     localizacao: inputLocalizacao.value,
@@ -297,21 +296,26 @@
                 });
                 carregarLeiloes(true);
             });
-
-            // Lógica do botão "Veja Mais"
             btnVejaMais.addEventListener('click', (event) => {
                 event.preventDefault();
                 currentPage++;
                 carregarLeiloes(false);
             });
-
-            // Lógica do clique no botão 'Ver Anúncio' (Contador)
-            leiloesGrid.addEventListener('click', async function(event) {
+            leiloesGrid.addEventListener('click', function(event) {
                 const botao = event.target.closest('.ver-anuncio-btn');
                 if (!botao) {
                     return;
                 }
+
+                // 1. Prevenimos o comportamento padrão do link para ter controle total.
                 event.preventDefault();
+
+                const leilaoId = botao.dataset.leilaoId;
+                const urlDestino = botao.href;
+                const apiUrl = `/api/leiloes/${leilaoId}/increment-view`;
+                const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+
+                // 2. Atualizamos o contador visualmente na tela (feedback instantâneo).
                 const card = botao.closest('.card-leilao');
                 if (card) {
                     const contadorElemento = card.querySelector('.view-count');
@@ -325,19 +329,29 @@
                         }
                     }
                 }
-                const leilaoId = botao.dataset.leilaoId;
-                const urlDestino = botao.href;
+
+                // 3. Abre a nova aba IMEDIATAMENTE.
+                // Como esta ação acontece logo após o clique, sem 'await', o iOS permite.
+                window.open(urlDestino, '_blank');
+
+                // 4. Envia a notificação para o servidor em SEGUNDO PLANO.
                 try {
-                    await fetch(`/api/leiloes/${leilaoId}/increment-view`, {
-                        method: 'POST',
-                        headers: {
-                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-                        }
-                    });
-                } catch (error) {
-                    console.error('Não foi possível incrementar a visualização no servidor:', error);
-                } finally {
-                    window.open(urlDestino, '_blank');
+                    const formData = new FormData();
+                    formData.append('_token', csrfToken);
+
+                    // Usa sendBeacon se disponível (melhor para este caso)
+                    if (navigator.sendBeacon) {
+                        navigator.sendBeacon(apiUrl, formData);
+                    } else {
+                        // Se não, usa fetch com 'keepalive' para garantir o envio mesmo que a página mude
+                        fetch(apiUrl, {
+                            method: 'POST',
+                            body: formData,
+                            keepalive: true
+                        });
+                    }
+                } catch (e) {
+                    console.error("Falha ao enviar o beacon de visualização:", e);
                 }
             });
 
